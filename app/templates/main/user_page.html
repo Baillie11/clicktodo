@@ -1,8 +1,17 @@
-{% extends "layout.html" %}
+{% extends "main/main_base.html" %}
 
-{% block body %}
-<h2>Members page</h2>
+{% block content %}
+<div class="container">
+  <h2>Welcome, {{ current_user.email }}</h2>
+  <p>This will be your personal dashboard for managing to-do lists.</p>
 
-<p>This is the secure members-only area.</p>
-<p>Welcome, {{ current_user.email }}!</p>
+  <hr>
+
+  <h4>Your To-Do Lists</h4>
+  <p>To-do list features coming soon…</p>
+
+  <div class="mt-3">
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger">Logout</a>
+  </div>
+</div>
 {% endblock %}

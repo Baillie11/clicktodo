@@ -1,12 +1,13 @@
 {% extends "main/main_base.html" %}
 
 {% block content %}
-<h2>Welcome to ClickTodo</h2>
+<div class="container">
+    <h2>Welcome to ClickTodo</h2>
+    <p>Please log in or register to manage your personal to-do lists.</p>
 
-<p><a href="{{ url_for('auth.register') }}">Register</a></p>
-<p><a href="{{ url_for('auth.login') }}">Sign in</a></p>
-<p><a href="{{ url_for('main.home_page') }}">Home Page</a> (accessible to anyone)</p>
-<p><a href="{{ url_for('main.member_page') }}">Member Page</a> (requires login)</p>
-<p><a href="{{ url_for('auth.logout') }}">Sign out</a></p>
-
+    <div style="margin-top: 20px;">
+        <a class="btn btn-primary" href="{{ url_for('auth.login') }}">Login</a>
+        <a class="btn btn-secondary" href="{{ url_for('auth.register') }}">Register</a>
+    </div>
+</div>
 {% endblock %}

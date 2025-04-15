@@ -3,9 +3,10 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from app.extensions import db
 from app.models.user_models import User
-from app.forms.auth_forms import RegisterForm  # ✅ Moved here properly
+from app.forms.auth_forms import RegisterForm
 
 auth_blueprint = Blueprint('auth', __name__, template_folder='templates')
+
 
 @auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,10 +26,12 @@ def login():
 
     return render_template('auth/login.html')
 
+
 @auth_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        name = form.name.data
         email = form.email.data
         password = form.password.data
 
@@ -36,7 +39,7 @@ def register():
         if existing_user:
             flash('Email already registered.', 'danger')
         else:
-            user = User(email=email)
+            user = User(name=name, email=email)
             user.set_password(password)
             db.session.add(user)
             db.session.commit()
@@ -44,6 +47,7 @@ def register():
             return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form)
+
 
 @auth_blueprint.route('/logout')
 @login_required
